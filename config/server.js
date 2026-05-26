@@ -1,4 +1,4 @@
-const port = 3000
+const port = 3001 //Mudei a porta de 3000 para 3001 para não dar conflito com o Lanfuse que usa a 3000
 const bodyParser = require('body-parser')
 const express = require('express')
 const server = express()

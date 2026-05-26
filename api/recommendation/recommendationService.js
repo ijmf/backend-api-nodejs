@@ -8,7 +8,8 @@ Recommendation.updateOptions({ new: true, runValidators: true })
 
 // Tratativa das mensagens de erro. Retorna apenas o campo com erro - Insert
 Recommendation.after('post', sendErrorsOrNext).after('put', sendErrorsOrNext)
-Recommendation.before('post', recommendation).before('put', recommendation)
+Recommendation.before('post', recommendation).before('put', recommendationUpdate)
+//Recommendation.before('post', recommendation).before('put', recommendation)
 
 function sendErrorsOrNext(req, res, next) {
   const bundle = res.locals.bundle
@@ -84,4 +85,29 @@ function recommendation(req, res, next){
   })
 }
 
+//A função abaixo não existia, identifiquei a necessidade e criei:
+
+function recommendationUpdate(req, res, next) {
+  const fullName = req.body.fullName || ''
+  const description = req.body.description || ''
+  const stars = req.body.stars || ''
+
+  if (!fullName || fullName === '') {
+    return res.status(400).send({ alert: ['O campo Nome Completo é obrigatório.'] })
+  }
+
+  if (!fullName.match(fullNameRegex)) {
+    return res.status(400).send({ alert: ['Informe o nome e sobrenome.'] })
+  }
+
+  if (description.length > 500) {
+    return res.status(400).send({ alert: ['O campo permite apenas 500 caracteres.'] })
+  }
+
+  if (!stars || stars === '') {
+    return res.status(400).send({ alert: ['Informe a quantidade de estrelas.'] })
+  }
+
+  next()
+}
 module.exports = Recommendation
