@@ -1,0 +1,417 @@
+{
+  "info": {
+    "_postman_id": "60c3c6e7-b1ff-4e7f-b6ef-04baa9cba362",
+    "name": "Postman",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20379135",
+    "_collection_link": "https://go.postman.co/collection/20379135-60c3c6e7-b1ff-4e7f-b6ef-04baa9cba362?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Recomendation",
+      "item": [
+        {
+          "name": "Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200 - API online\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Recomendation",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function randomItem(list) {\r",
+                  "    return list[Math.floor(Math.random() * list.length)];\r",
+                  "}\r",
+                  "\r",
+                  "var firstNames = [\"Miguel\",\"Sophia\",\"Davi\",\"Alice\",\"Arthur\",\"Julia\",\"Pedro\",\"Isabella\",\r",
+                  "    \"Gabriel\",\"Manuela\",\"Bernardo\",\"Laura\",\"Lucas\",\"Flávia\",\"Luiza\",\"Matheus\",\"Noah\",\r",
+                  "    \"Valentina\",\"Giovanna\",\"Heitor\",\"Enzo\",\"Helena\",\"Guilherme\",\"Beatriz\",\"Nicolas\",\r",
+                  "    \"Leticia\",\"Lorenzo\",\"Lara\",\"Gustavo\",\"Mariana\",\"Felipe\",\"Nicole\",\"Samuel\",\"Joice\",\r",
+                  "    \"Denez\",\"Rafaela\",\"Augusto\",\"Heloisa\",\"Daniel\",\"Isadora\",\"Vitor\",\"Livia\",\"Leonardo\",\r",
+                  "    \"Henrique\",\"Juliana\",\"Theo\",\"Lorena\",\"Murilo\",\"Gabriela\",\"Eduardo\",\"Yasmin\",\"Pedro\",\r",
+                  "    \"Henriqueta\",\"Isabelly\",\"Pietro\",\"Sarah\",\"Kauã\",\"Jaqueline\",\"Isaac\",\"Letícia\",\"Caio\",\r",
+                  "    \"Mariele\",\"Vinicius\",\"Melissa\",\"Benjamin\",\"Marina\",\"João\",\"Clara\",\"Lucca\",\"Cecilia\",\r",
+                  "    \"Miguel\",\"Esther\",\"Bryan\",\"Emanuelly\",\"Joaquim\",\"Rebeca\",\"Victor\",\"Bella\",\"Thiago\",\r",
+                  "    \"Lavinia\",\"Antônio\",\"Vitória\",\"Mario\",\"Bianca\",\"Francisco\",\"Catarina\",\"Ronaldo\",\r",
+                  "    \"Larissa\",\"Bruno\",\"Margarida\",\"Emanuel\",\"Fernanda\",\"Marcos\",\"Amanda\",\"Ian\",\"Alícia\",\r",
+                  "    \"Luiz\",\"Carolina\",\"Rodrigo\",\"Agatha\",\"Otávio\",\"Gabrielly\"];\r",
+                  "\r",
+                  "var lastNames = [\"Alves da Silva\",\"Andrade Barbosa\",\"Barbosa Oliveira\",\"Oliveira da Silva\",\r",
+                  "    \"Alves Pereira\",\"Conceição Silva\",\"Ferreira Santos\",\"Lima Oliveira\",\"Rodrigues Costa\",\r",
+                  "    \"Nascimento Lima\",\"Carvalho Souza\",\"Gomes Ferreira\",\"Martins Rodrigues\",\"Araújo Alves\",\r",
+                  "    \"Melo Nascimento\",\"Ribeiro Carvalho\",\"Almeida Gomes\",\"Monteiro Martins\",\"Cardoso Araújo\",\r",
+                  "    \"Costa Melo\",\"Dias Ribeiro\",\"Fernandes Almeida\",\"Teixeira Monteiro\",\"Borges Cardoso\",\r",
+                  "    \"Moreira Costa\",\"Nunes Dias\",\"Vieira Fernandes\",\"Pinto Teixeira\",\"Correia Borges\",\r",
+                  "    \"Mendes Moreira\",\"Freitas Nunes\",\"Cavalcanti Vieira\",\"Ramos Pinto\",\"Moura Correia\",\r",
+                  "    \"Leal Mendes\",\"Brito Freitas\",\"Machado Cavalcanti\",\"Farias Ramos\",\"Sampaio Moura\",\r",
+                  "    \"Campos Leal\",\"Cruz Brito\",\"Barros Machado\",\"Pires Farias\",\"Cunha Sampaio\"];\r",
+                  "\r",
+                  "var situations = [\"Pendente\", \"Aprovado\", \"Rejeitado\"];\r",
+                  "\r",
+                  "var first = randomItem(firstNames);\r",
+                  "var last = randomItem(lastNames);\r",
+                  "\r",
+                  "pm.environment.set(\"FirstName\", first);\r",
+                  "pm.environment.set(\"LastName\", last);\r",
+                  "pm.environment.set(\"fullName\", first + \" \" + last);\r",
+                  "pm.environment.set(\"Description\", pm.variables.replaceIn('{{$randomLoremSentences}}'));\r",
+                  "pm.environment.set(\"stars\", Math.floor(Math.random() * 5) + 1);\r",
+                  "pm.environment.set(\"Situation\", randomItem(situations));\r",
+                  "pm.environment.set(\"Status\", pm.variables.replaceIn('{{$randomBoolean}}'));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 201 - Criado com sucesso\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check FullName is True\", function () {\r",
+                  "    pm.expect(pm.environment.get(\"fullName\")).to.eql(pm.response.json().fullName);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contém _id\", function () {\r",
+                  "    var json = pm.response.json();\r",
+                  "    pm.expect(json).to.have.property(\"_id\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"situation sempre inicia como Pendente\", function () {\r",
+                  "    var json = pm.response.json();\r",
+                  "    pm.expect(json.situation).to.eql(\"Pendente\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"status sempre inicia como true\", function () {\r",
+                  "    var json = pm.response.json();\r",
+                  "    pm.expect(json.status).to.eql(true);\r",
+                  "});\r",
+                  "\r",
+                  "// Salva o _id para usar nos testes de GET/PUT/DELETE\r",
+                  "pm.environment.set(\"recommendationId\", pm.response.json()._id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\": \"{{fullName}}\",\r\n    \"description\": \"{{Description}}\",\r\n    \"stars\": {{stars}},\r\n    \"situation\": \"{{Situation}}\",\r\n    \"status\": \"{{Status}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/recommendation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendation"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Recomendation ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contém o ID correto\", function () {\r",
+                  "    var json = pm.response.json();\r",
+                  "    pm.expect(json._id).to.eql(pm.environment.get(\"recommendationId\"));\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Campos obrigatórios presentes\", function () {\r",
+                  "    var json = pm.response.json();\r",
+                  "    pm.expect(json).to.have.property(\"fullName\");\r",
+                  "    pm.expect(json).to.have.property(\"situation\");\r",
+                  "    pm.expect(json).to.have.property(\"stars\");\r",
+                  "    pm.expect(json).to.have.property(\"status\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "packages": {},
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/recommendation/{{recommendationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendation",
+                "{{recommendationId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Recomendation ALL",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response é um array\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Registros possuem os campos obrigatórios\", function () {\r",
+                  "    var json = pm.response.json();\r",
+                  "    json.forEach(function(item) {\r",
+                  "        pm.expect(item).to.have.property(\"_id\");\r",
+                  "        pm.expect(item).to.have.property(\"fullName\");\r",
+                  "        pm.expect(item).to.have.property(\"situation\");\r",
+                  "        pm.expect(item).to.have.property(\"status\");\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/recommendation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendation"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Recomendation ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200 - Atualizado com sucesso\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"fullName foi atualizado\", function () {\r",
+                  "    var json = pm.response.json();\r",
+                  "    pm.expect(json.fullName).to.not.be.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"situation pode ser alterada via PUT\", function () {\r",
+                  "    var json = pm.response.json();\r",
+                  "    pm.expect(json.situation).to.be.oneOf([\"Pendente\", \"Aprovado\", \"Rejeitado\"]);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "    {\r\n        \"fullName\": \"Ramons Teste\",\r\n        \"description\": \"Recomendação Atualizada v5\",\r\n        \"stars\": 2\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/recommendation/{{recommendationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendation",
+                "{{recommendationId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Recomendation ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 204 - Deletado com sucesso\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/recommendation/{{recommendationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendation",
+                "{{recommendationId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Register",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\": \"Paulo Vieira\",\r\n    \"mail\": \"pauloPP@gmail.com\",\r\n    \"phone\": 5199999999,\r\n    \"address\": \"Jardim barragem 5\",\r\n    \"number\": 2,\r\n    \"complement\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register ID",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Register ALL",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/register/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "register",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Registro ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/register/6a1454b1bd3e593920686e9d",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "register",
+                "6a1454b1bd3e593920686e9d"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
