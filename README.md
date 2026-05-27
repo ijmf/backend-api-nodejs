@@ -1,17 +1,14 @@
 # backend-api-nodejs
 
-> Projeto baseado no repositório original [QaCoders Academy](https://github.com/Qa-Coders/backend-api-nodejs), desenvolvido durante o curso de testes de API. Este repositório contém melhorias implementadas durante os estudos, incluindo refatoração do código de geração de massa de dados, criação da função `recommendationUpdate` para validação no PUT, e testes automatizados com `pm.test` rodados em 100 iterações via Collection Runner.
-
-# backend-api-nodejs
-
-API REST desenvolvida em Node.js para gerenciamento de recomendações. Projeto de estudo com foco em testes de API usando Postman.
+> Projeto baseado no repositório original [QaCoders Academy](https://github.com/Qa-Coders/backend-api-nodejs), desenvolvido durante o curso de testes de API. Este repositório contém melhorias implementadas durante os estudos, incluindo refatoração do código de geração de massa de dados, criação da função `recommendationUpdate` para validação no PUT, testes automatizados com `pm.test` via Collection Runner e teste de carga com Grafana k6.
 
 ## Tecnologias
 
 - Node.js
 - Express
 - MongoDB / Mongoose
-- Postman (testes e massa de dados)
+- Postman (testes funcionais e massa de dados)
+- Grafana k6 (testes de carga e performance)
 
 ## Endpoints
 
@@ -53,3 +50,44 @@ Para importar:
 4. Configure o environment com a variável `baseUrl: http://127.0.0.1:3001`
 
 Os testes foram executados com **100 iterações via Collection Runner**, totalizando **1600 testes com 0 falhas**.
+
+## Testes de carga com k6
+
+O script de carga está disponível em `k6/load-test-v2.js`.
+
+### Pré-requisitos
+
+- [Grafana k6](https://grafana.com/docs/k6/latest/set-up/install-k6/) instalado
+
+### Como executar
+
+```bash
+k6 run k6/load-test-v2.js
+```
+
+### Cenário
+
+O teste simula o fluxo completo da API com 10 usuários simultâneos durante 2 minutos:
+
+- 0–30s: rampa de 0 a 10 usuários
+- 30s–1m30s: 10 usuários simultâneos
+- 1m30s–2m: rampa de descida para 0
+
+Cada iteração executa: **POST → GET por ID → DELETE**
+
+### Resultados obtidos
+
+| Métrica | Valor |
+|--------|-------|
+| Iterações completas | 908 |
+| Checks executados | 4.540 |
+| Checks com sucesso | 100% |
+| Requisições com falha | 0% |
+| Latência média | 4.42ms |
+| P95 | 8.22ms |
+| Requisições por segundo | 22 |
+
+### Thresholds
+
+- P95 abaixo de 500ms ✅
+- Taxa de falha abaixo de 1% ✅
