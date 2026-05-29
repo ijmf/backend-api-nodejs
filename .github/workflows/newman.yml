@@ -1,0 +1,47 @@
+name: Newman API Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  newman:
+    name: Executar testes de API com Newman
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:6
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Instalar Newman
+        run: npm install -g newman
+
+      - name: Iniciar backend em background
+        run: node loader.js &
+        env:
+          PORT: 3001
+
+      - name: Aguardar backend iniciar
+        run: sleep 5
+
+      - name: Executar testes com Newman
+        run: newman run Postman.postman_collection.json -e Postman.postman_environment.json
