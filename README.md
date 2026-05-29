@@ -1,14 +1,19 @@
 # backend-api-nodejs
 
-> Projeto baseado no repositório original [QaCoders Academy](https://github.com/Qa-Coders/backend-api-nodejs), desenvolvido durante o curso de testes de API. Este repositório contém melhorias implementadas durante os estudos, incluindo refatoração do código de geração de massa de dados, criação da função `recommendationUpdate` para validação no PUT, testes automatizados com `pm.test` via Collection Runner e teste de carga com Grafana k6.
+> Projeto baseado no repositório original [QaCoders Academy](https://github.com/Qa-Coders/backend-api-nodejs), desenvolvido durante o curso de testes de API. Este repositório contém melhorias implementadas durante os estudos, incluindo refatoração do código de geração de massa de dados, criação da função `recommendationUpdate` para validação no PUT, testes automatizados com `pm.test` via Collection Runner, teste de carga com Grafana k6 e pipeline CI/CD com GitHub Actions.
+
+## CI/CD
+
+[![Newman API Tests](https://github.com/ijmf/backend-api-nodejs/actions/workflows/newman.yml/badge.svg)](https://github.com/ijmf/backend-api-nodejs/actions/workflows/newman.yml)
 
 ## Tecnologias
 
 - Node.js
 - Express
 - MongoDB / Mongoose
-- Postman (testes funcionais e massa de dados)
+- Postman + Newman (testes funcionais e pipeline CI/CD)
 - Grafana k6 (testes de carga e performance)
+- GitHub Actions (execução automática dos testes a cada push)
 
 ## Endpoints
 
@@ -39,17 +44,29 @@ npm install
 npm run dev
 ```
 
-## Testes com Postman
+## Testes com Postman e Newman
 
-A collection está disponível no arquivo `Postman.json` na raiz do projeto.
+A collection está disponível no arquivo `Postman.postman_collection.json` na raiz do projeto.
 
-Para importar:
+Para importar no Postman:
 1. Abra o Postman
 2. Clique em **Import**
-3. Selecione o arquivo `Postman.json`
+3. Selecione o arquivo `Postman.postman_collection.json`
 4. Configure o environment com a variável `baseUrl: http://127.0.0.1:3001`
 
 Os testes foram executados com **100 iterações via Collection Runner**, totalizando **1600 testes com 0 falhas**.
+
+Para rodar via Newman (linha de comando):
+
+```bash
+newman run Postman.postman_collection.json -e Postman.postman_environment.json
+```
+
+## Pipeline CI/CD
+
+Os testes são executados automaticamente via GitHub Actions a cada push na branch `main`. O pipeline sobe o MongoDB, instala as dependências, inicializa o backend e executa a collection completa com Newman.
+
+Para acompanhar as execuções: [Actions](https://github.com/ijmf/backend-api-nodejs/actions)
 
 ## Testes de carga com k6
 
