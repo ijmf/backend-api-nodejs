@@ -30,7 +30,7 @@ jobs:
           cache: 'npm'
 
       - name: Instalar dependências
-        run: npm install
+        run: npm install --force
 
       - name: Instalar Newman
         run: npm install -g newman
